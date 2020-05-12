@@ -1,0 +1,12 @@
+version: '3'
+services:
+  network:
+    build: ./network/
+    ports:
+      - "5000:5000"
+  app:
+    build: ./app_data/
+    ports:
+      - "5001:5001"
+  cron:
+    build: ./cron_refresh/

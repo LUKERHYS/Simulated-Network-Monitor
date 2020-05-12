@@ -1,0 +1,18 @@
+# Device = {
+#   hostName: "Alan's phone",
+#   type: "phone",
+#   operatingSystem: "Android",
+#   connectionTypes: [{
+#     connectionId: 1
+#     type: "ethernet",
+#     macAddress: "00:1B:44:11:3A:B7",
+#     ipAddress: null
+#   },
+#   {
+#     connectionId: 2
+#     type: "wifi",
+#     macAddress: "00:1D:37:12:3B:A9",
+#     ipAddress: null
+#   }],
+#   activeConnection: null
+# }s

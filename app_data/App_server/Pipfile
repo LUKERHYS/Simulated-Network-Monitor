@@ -1,0 +1,19 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+requests = "*"
+flask = "*"
+flask-sqlalchemy = "*"
+flask-marshmallow = "*"
+schedule = "*"
+python-crontab = "*"
+flask-crontab = "*"
+flask-cors = "*"
+
+[requires]
+python_version = "3.7"
