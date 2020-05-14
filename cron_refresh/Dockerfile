@@ -1,6 +1,7 @@
 FROM ubuntu
 RUN apt-get update
-RUN apt-get -y install cron lynx
+RUN apt-get -y install cron python3 python3-pip
+RUN pip3 install asyncio websockets 
 
 ADD crontab /etc/cron.d/simple-cron
 

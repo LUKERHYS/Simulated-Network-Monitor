@@ -6,14 +6,8 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-requests = "*"
-flask = "*"
-flask-sqlalchemy = "*"
-flask-marshmallow = "*"
-schedule = "*"
-python-crontab = "*"
-flask-crontab = "*"
-flask-cors = "*"
+sqlalchemy = "*"
+marshmallow-sqlalchemy = "*"
 
 [requires]
 python_version = "3.7"

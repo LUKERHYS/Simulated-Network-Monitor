@@ -1,4 +1,4 @@
-from flask import Blueprint, request, Response
+from flask import Blueprint, request, Response, jsonify
 
 from utils.db import db
 from models.device import Device
@@ -13,7 +13,7 @@ def add_device():
         new_device = Device(**device)
         db.session.add(new_device)
     db.session.commit()
-    return device_schema.dumps(device_data)
+    return jsonify({"Devices added": len(device_data)})
 
 @devices_blueprint.route('/', methods=['GET'])
 def get_devices():
