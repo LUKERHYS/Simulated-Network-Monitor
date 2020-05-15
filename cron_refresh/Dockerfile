@@ -8,6 +8,8 @@ ADD crontab /etc/cron.d/simple-cron
 # Add shell script and grant execution rights
 ADD script.sh /script.sh
 RUN chmod +x /script.sh
+ADD refresh.py /refresh.py
+RUN chmod +x /refresh.py
 
 # Give execution rights on the cron job
 RUN chmod 0644 /etc/cron.d/simple-cron

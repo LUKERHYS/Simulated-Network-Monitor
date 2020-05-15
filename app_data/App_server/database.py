@@ -46,6 +46,7 @@ class StaticDataSchema(SQLAlchemyAutoSchema):
 
 static_data_schema = StaticDataSchema(many=True)
 
+Base.metadata.drop_all(engine)
 Base.metadata.create_all(bind=engine)
 
 # Test data
