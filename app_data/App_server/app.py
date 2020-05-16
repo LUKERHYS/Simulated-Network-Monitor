@@ -12,7 +12,7 @@ from database import session, StaticData, DynamicData, static_data_schema
 
 if __name__ == '__main__' : 
     def refresh_data():
-        fetch = requests.get('http://172.18.0.1:5000/devices/')
+        fetch = requests.get('http://network:5000/devices/')
         devices = fetch.json()
         for device in devices:
             del device["id"]

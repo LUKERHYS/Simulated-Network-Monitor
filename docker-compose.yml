@@ -8,5 +8,9 @@ services:
     build: ./app_data/
     ports:
       - "5001:5001"
+    depends_on:
+      - network
   cron:
     build: ./cron_refresh/
+    depends_on:
+      - app

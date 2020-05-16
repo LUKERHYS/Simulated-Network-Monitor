@@ -5,7 +5,7 @@ import json
 
 print("hello")
 async def refresh():
-    uri = "ws://172.18.0.1:5001/"
+    uri = "ws://app:5001/"
     async with websockets.connect(uri) as websocket:
         await websocket.send(json.dumps({"socket_type": "refresh"}))
 
