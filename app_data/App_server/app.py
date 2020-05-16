@@ -66,7 +66,10 @@ if __name__ == '__main__' :
                     logging.error("unsupported event: {}", data)
         finally:
             await unregister(websocket)
-
+    
+    devices = session.query(StaticData).all()
+    if len(devices) == 0:
+        refresh_data()
 
     start_server = websockets.serve(refresher, port=5001, host='0.0.0.0')
 
