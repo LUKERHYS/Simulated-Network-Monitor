@@ -1,36 +1,11 @@
 import os
-from sqlalchemy import create_engine, Column, Integer, String, Boolean, ForeignKey
-from sqlalchemy.orm import relationship, scoped_session, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema, auto_field
 from marshmallow_sqlalchemy.fields import Nested
 
-Base = declarative_base()
-basedir = os.path.abspath((os.path.dirname(__file__)))
-sqlalchemy_db_uri = 'sqlite:///' + os.path.join(basedir, 'db.sqlite')
-engine = create_engine(sqlalchemy_db_uri)
-session = scoped_session(sessionmaker(bind=engine))
+from models.dynamic_data import DynamicData
+from models.static_data import StaticData
 
-class DynamicData(Base):
-    __tablename__ = 'dynamic_data'
-    id = Column(Integer, primary_key = True)
-    static_data_id = Column(Integer, ForeignKey('static_data.id'), nullable=False)
-    static_data = relationship('StaticData', back_populates='snap_shots')
-    time_stamp = Column(String(255))
-    upload_speed = Column(Integer)
-    download_speed = Column(Integer)
-    active_connection = Column(Boolean)
-
-class StaticData(Base):
-    __tablename__ = 'static_data'
-    id = Column(Integer, primary_key = True)
-    host_name = Column(String(255))
-    device_type = Column(String(255))
-    operating_system = Column(String(255))
-    mac_address = Column(String(255), unique=True)
-    ip_address = Column(String(255))
-    snap_shots = relationship('DynamicData', back_populates='static_data')
+from utils.db import Base, session, engine
 
 class DynamicDataSchema(SQLAlchemyAutoSchema):
     class Meta:
