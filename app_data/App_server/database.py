@@ -48,15 +48,3 @@ static_data_schema = StaticDataSchema(many=True)
 
 Base.metadata.drop_all(engine)
 Base.metadata.create_all(bind=engine)
-
-# Test data
-# static = StaticData(host_name ="a", device_type="b", operating_system="c", mac_address="d", ip_address="e")
-# session.add(static)
-# session.commit()
-# dynamic = DynamicData(static_data_id=static.id, time_stamp="aaa", upload_speed=0, download_speed=0, active_connection=False)
-# session.add(dynamic)
-# session.commit()
-
-# all_devices = session.query(StaticData).all()
-# data = static_data_schema.dumps(all_devices)
-# print(data)
