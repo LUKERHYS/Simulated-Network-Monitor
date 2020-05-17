@@ -7,8 +7,15 @@ logging.basicConfig()
 
 import requests
 from datetime import datetime
+from utils.db import session
+from models.dynamic_data import DynamicData
+from models.static_data import StaticData
+from schemas.static_data_schema import static_data_schema
 
-from database import session, StaticData, DynamicData, static_data_schema
+from utils.db import Base, engine
+
+Base.metadata.drop_all(engine)
+Base.metadata.create_all(bind=engine)
 
 if __name__ == '__main__' : 
     def refresh_data():
