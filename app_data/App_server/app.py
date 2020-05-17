@@ -3,8 +3,6 @@ import websockets
 import json
 import logging
 
-logging.basicConfig()
-
 import requests
 from datetime import datetime
 from utils.db import session
@@ -14,6 +12,7 @@ from schemas.static_data_schema import static_data_schema
 
 from utils.db import Base, engine
 
+logging.basicConfig()
 Base.metadata.drop_all(engine)
 Base.metadata.create_all(bind=engine)
 
@@ -42,11 +41,11 @@ if __name__ == '__main__' :
             session.add(dynamic_data)
             session.commit()
 
-    DASHBOARDS = set()
-
     def presentation_data():
         devices = session.query(StaticData).all()
         return static_data_schema.dumps(devices)
+    
+    DASHBOARDS = set()
 
     async def notify_dashboards():
         if DASHBOARDS:
