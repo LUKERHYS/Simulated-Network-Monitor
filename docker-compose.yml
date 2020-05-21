@@ -11,6 +11,6 @@ services:
     depends_on:
       - network
   cron:
-    build: ./cron_refresh/
+    build: ./cron/
     depends_on:
       - app

@@ -3,7 +3,7 @@ import websockets
 import logging
 import json
 
-from helpers.data_helper import refresh_data, presentation_data, number_of_snapshots, clear_data, seed_data
+from helpers.data_helper import refresh_data, presentation_data, clean_data, seed_data
 
 DASHBOARDS = set()
 
@@ -28,8 +28,8 @@ async def runner(websocket, path):
             if data["socket_type"] == "refresh":
                 refresh_data()
                 await notify_dashboards()
-                if number_of_snapshots() >= 60:
-                    clear_data()
+            elif data["socket_type"] == "clean":
+                    clean_data()
                     seed_data(10)
             else:
                 logging.error("unsupported event: {}", data)

@@ -37,7 +37,7 @@ def presentation_data():
 def number_of_snapshots():
     return len(session.query(StaticData).first().snap_shots)
 
-def clear_data():
+def clean_data():
     Base.metadata.drop_all(engine)
     Base.metadata.create_all(bind=engine)
 
