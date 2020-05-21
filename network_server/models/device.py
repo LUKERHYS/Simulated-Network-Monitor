@@ -13,15 +13,15 @@ class Device(db.Model):
     download_speed = db.Column(db.Integer)
     active_connection = db.Column(db.Boolean)
 
-    def __init__(self, host_name, device_type, operating_system, mac_address, ip_address, upload_speed, download_speed, active_connection):
+    def __init__(self, host_name, device_type, operating_system, mac_address, ip_address):
         self.host_name = host_name
         self.device_type = device_type
         self.operating_system = operating_system
         self.mac_address = mac_address
         self.ip_address = ip_address
-        self.upload_speed = upload_speed
-        self.download_speed = download_speed
-        self.active_connection = active_connection
+        self.active_connection = bool(random.getrandbits(1))
+
+        self.update_upload_download()
 
     def update(self):
         self.update_active_connection()
