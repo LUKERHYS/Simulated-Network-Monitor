@@ -1,11 +1,11 @@
 version: '3'
 services:
   network:
-    build: ./network/
+    build: ./network_server/
     ports:
       - "5000:5000"
   app:
-    build: ./app_data/
+    build: ./app_server/
     ports:
       - "5001:5001"
     depends_on:
