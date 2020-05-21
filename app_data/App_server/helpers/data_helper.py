@@ -1,7 +1,7 @@
 import requests
 from datetime import datetime
 
-from utils.db import session
+from utils.db import Base, engine, session
 from models.dynamic_data import DynamicData
 from models.static_data import StaticData
 from schemas.static_data_schema import static_data_schema
@@ -33,3 +33,14 @@ def refresh_data():
 def presentation_data():
     devices = session.query(StaticData).all()
     return static_data_schema.dumps(devices)
+
+def number_of_snapshots():
+    return len(session.query(StaticData).first().snap_shots)
+
+def clear_data():
+    Base.metadata.drop_all(engine)
+    Base.metadata.create_all(bind=engine)
+
+def seed_data(seed_number):
+    for _ in range(seed_number):
+        refresh_data()
