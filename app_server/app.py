@@ -10,7 +10,7 @@ from models.dynamic_data import DynamicData
 from models.static_data import StaticData
 from schemas.static_data_schema import static_data_schema
 from helpers.data_helper import seed_data, presentation_data
-from helpers.socket_helper import register, unregister, notify_dashboards, runner
+from helpers.socket_helper import runner
 
 if __name__ == '__main__' :
     logging.basicConfig()

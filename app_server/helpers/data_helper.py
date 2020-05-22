@@ -34,9 +34,6 @@ def presentation_data():
     devices = session.query(StaticData).all()
     return static_data_schema.dumps(devices)
 
-def number_of_snapshots():
-    return len(session.query(StaticData).first().snap_shots)
-
 def clean_data():
     Base.metadata.drop_all(engine)
     Base.metadata.create_all(bind=engine)
