@@ -13,7 +13,6 @@ from helpers.data_helper import seed_data, presentation_data
 from helpers.socket_helper import runner
 
 if __name__ == '__main__' :
-    logging.basicConfig()
     Base.metadata.drop_all(engine)
     Base.metadata.create_all(bind=engine)
 
