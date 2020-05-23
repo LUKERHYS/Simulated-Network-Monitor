@@ -33,6 +33,7 @@ async def runner(websocket, path):
             elif data["socket_type"] == "clean" and data["password"] == cron_pass:
                     clean_data()
                     seed_data(10)
+                await notify_dashboards()
             else:
                 logging.error("unsupported event: {}", data)
     finally:
