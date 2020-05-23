@@ -1,2 +1,2 @@
-* * * * * root /request.sh refresh;
+1-59 * * * * root /request.sh refresh;
 0 * * * * root /request.sh clean
