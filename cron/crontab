@@ -1,2 +1,2 @@
-* * * * * root /refresh.py; /refresh.sh;
-0 * * * * root /clean.py; /clean.sh
+* * * * * root /refresh.sh;
+0 * * * * root /clean.sh

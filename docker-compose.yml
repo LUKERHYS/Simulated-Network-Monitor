@@ -10,7 +10,11 @@ services:
       - "5001:5001"
     depends_on:
       - network
+    environment:
+      - CRON_PASS=${CRON_PASS}
   cron:
     build: ./cron/
     depends_on:
       - app
+    environment:
+      - CRON_PASS=${CRON_PASS}
