@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM debian
 RUN apt-get update
 RUN apt-get -y install cron python3 python3-pip
 RUN pip3 install asyncio websockets 

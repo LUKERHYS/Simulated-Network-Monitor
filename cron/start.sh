@@ -1,3 +1,3 @@
 #!/bin/bash 
-printenv | grep -v "no_proxy" >> /etc/environment
+printenv > /etc/environment
 cron && tail -f /var/log/cron.log
