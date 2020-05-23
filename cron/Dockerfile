@@ -7,7 +7,7 @@ ADD crontab /etc/cron.d/simple-cron
 
 COPY . .
 
-RUN chmod +x /refresh.sh /refresh.py /clean.sh /clean.py
+RUN chmod +x /request.sh /request.py
 RUN chmod 0644 /etc/cron.d/simple-cron
 
 RUN touch /var/log/cron.log

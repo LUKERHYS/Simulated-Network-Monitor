@@ -1,2 +1,2 @@
-* * * * * root /refresh.sh;
-0 * * * * root /clean.sh
+* * * * * root /request.sh refresh;
+0 * * * * root /request.sh clean
