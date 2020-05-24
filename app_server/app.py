@@ -1,15 +1,8 @@
 import asyncio
 import websockets
-import json
-import logging
-import requests
-from datetime import datetime
 
-from utils.db import Base, engine, session
-from models.dynamic_data import DynamicData
-from models.static_data import StaticData
-from schemas.static_data_schema import static_data_schema
-from helpers.data_helper import seed_data, presentation_data
+from utils.db import Base, engine
+from helpers.data_helper import seed_data
 from helpers.socket_helper import runner
 
 if __name__ == '__main__' :
