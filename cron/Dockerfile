@@ -12,4 +12,4 @@ RUN chmod 0644 /etc/cron.d/simple-cron
 
 RUN touch /var/log/cron.log
 
-ENTRYPOINT ["/bin/bash", "/start.sh"]
+ENTRYPOINT ["/bin/bash", "start.sh"]
