@@ -1,14 +1,12 @@
-[See the Dashboard in action](Hosted-link)
-
-[Front-end Repo](https://github.com/Dotsworthy/NetworkingPanel)
+[See the Dashboard in action](https://networkdashboard.netlify.app/) | [Front-end Repo](https://github.com/Dotsworthy/NetworkingPanel)
 
 This project was built as our final project for CodeClan's professional software development course. Version 1 was completed in the first 5 day sprint, we then continued to develop the project after the course finished. It functions as a Networking panel, and is also available for use as a websocket API with updating network data.
 
 Our aim for this project was to model a useful tool. We wanted to build a web app dashboard that would display network data and monitor changes for connected devices. The dashboard would need to display vital stats and enable data to be understood at a glance.
 
-[Gif of the dashboard updating with example output]
+The gif below shows a quickened version of the dashboard, updating with new network data. It starts with 10 timestamps for each device, adds 60 more, and resets to 10. In the live version this repeats every hour.
 
-The initial plan was to use an existing API to generate the network data, we would then build our own API to store and access changes over time for each device giving us the ability to graph those changes in state. After some research we realised that such an API did not exist and that we would need to build it. This lead to the creation of the second back-end to simulate a network.
+![Dashboard updating with new network data and resetting](readme_files/dashnet-demo.gif)
 ​
 ## Project Overview
 
@@ -25,7 +23,7 @@ The project consists of three main components: the network server, the app serve
 [Diagram showing network-app-cron-dashboard + databases and interactions]
 
 #### Network server
-The network server stores and presents the static data of each network device via a RESTful API built using Flask. It is not directly accessible in the live version but is used to provide data to the app server. 
+The network server stores and presents the static data of each network device, via a RESTful API built using Flask. It is not directly accessible in the live version but is used to provide data to the app server. 
 
 It has a POST route for adding multiple devices, via port 5000 when runnning locally. This route can be used on the server for adding new devices. 
 
@@ -33,7 +31,7 @@ It also has a GET route which updates all device dynamic data and returns all de
 
 Example data from the network server, showing the current state of the network:
 
-```javascript
+```yaml
 [
     {
         "device_type": "Router",
@@ -60,7 +58,7 @@ Example data from the network server, showing the current state of the network:
 ]
 ```
 ​
-####App server
+#### App server
  
 The app server acts as the middle man between the network server and the dashboard. It requests data from the back end and splits the static data (host\_name, device\_type, ...) from the dynamic data (upload\_speed, download\_speed, active\_connection). A time stamp is added to the dynamic data so that the network changes can be tracked and plotted over time. This formatted JSON data is then presented to the front-end via a websocket.
 
@@ -72,7 +70,7 @@ Two cron-jobs trigger different behaviours in the app-server:
 
 Example data from the app server, showing multiple snapshots:
 
-```javascript
+```yaml
 [
     {
     	"id": 1,
@@ -125,7 +123,6 @@ Example data from the app server, showing multiple snapshots:
 ]
 ```
 
-​
 #### Network Dashboard
 The network dashboard is a React web app which connects to the app server via a websocket. It updates its state whenever it recieves new data from the app server.
 
@@ -133,7 +130,7 @@ It displays the individual device data and network summary data as it varies ove
 
 ## API usage
 
-The back end of the project can be accessed through a websocket (ws://77.68.23.244:5001) on the App server. From there you can access the current state of the network data in JSON format.
+The back end of the project can be accessed through a websocket (wss://network-sim.fraserkeir.com) on the App server. From there you can access the current state of the network data in JSON format.
 
 The database is cleared at 00 every hour, and refreshed to have 10 snapshots for each device. A new snapshot is read from the network server every minute 01-59. A connected websocket will be sent the updated data every time the app server is updated.
 
@@ -226,7 +223,7 @@ The two cron-jobs make use of the same bash and python scripts to send a differe
 0 * * * * root /request.sh clean
 ```
 
-This function connects to the app server via a websocket and passes its argument ("refresh" or "clean"), along with an optional password to authenticate the connection. If no password is used, it will be a None value in both the cron-job and app server.
+This function connects to the app server via a websocket and passes its argument ("refresh" or "clean"), along with an optional password to authenticate the connection. If no password is used, it will be a `None` value in both the cron-job and app server (allowing the cron-job to trigger the appropriate response).
 
 ```python
 async def request():
@@ -247,9 +244,9 @@ env | grep '^CRON_PASS' | cat - crontab > /etc/cron.d/simple-cron
 
 ### App server websocket
 
-When a client connects to the app server; register() adds it to the set of connected websockets and sends it the network data. unregister() removes the client from the set when the websocket disconnects.
+When a client connects to the app server; register() adds it to the set of connected websockets and sends it the current network data. unregister() removes the client from the set when the websocket disconnects.
 
-The runner function listens for messages from the connected websockets. This is where the cron-jobs are recieved: if the password matches and socket_type is valid it will trigger either the refresh or clean actions of the app server. Once either of these actions have activated, all connnected dashboards will recieve the complete updated network data.
+The runner function listens for messages from the connected websockets. This is where the cron-jobs are recieved: if the password matches and the `socket_type` is valid it will trigger either the refresh or clean actions of the app server. Once either of these actions have activated, all connnected dashboards will receive the complete updated network data.
 
 ```python
 async def runner(websocket, path):
