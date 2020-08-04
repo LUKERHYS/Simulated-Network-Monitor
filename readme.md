@@ -20,7 +20,7 @@ The gif below shows a quickened version of the dashboard, updating with new netw
 
 The project consists of three main components: the network server, the app server, and the dashboard. In addition there is a cron-job container which is used to initiate the processes of updating the network data.
 
-[Diagram showing network-app-cron-dashboard + databases and interactions]
+![Diagram showing network-app-cron-dashboard + databases and interactions](readme_files/project-overview.jpeg)
 
 #### Network server
 The network server stores and presents the static data of each network device, via a RESTful API built using Flask. It is not directly accessible in the live version but is used to provide data to the app server. 
